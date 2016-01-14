@@ -1,0 +1,21 @@
+extends ../layout
+
+block content
+		div.panel.panel-default
+			div.panel-heading User Info
+			div.panel-body
+				div.inner
+					div
+						a(href="/users/home?userName=#{user.userName}").user-avatar
+							img(src="#{user.userAvatar}")
+						span.user-name
+							a(href="/users/home?userName=#{user.userName}") #{user.userName}
+
+
+		div.panel.panel-default
+			div.panel-heading User Topic
+			div.panel-body
+				include ../topic/list
+
+
+

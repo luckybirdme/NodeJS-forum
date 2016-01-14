@@ -1,0 +1,39 @@
+extends ../layout
+
+block content	
+		div.panel.panel-default
+			div.panel-heading #{title}
+			div.panel-body 
+				form#settingForm.form-horizontal
+
+					div.form-group
+						label.col-md-4.control-label Avatar
+						div.col-md-3
+							div.inner
+								div
+									a(href="/users/home").user-avatar
+										img(src="#{session.user.userAvatar}")#avatar
+										input(name="userAvatar" id="userAvatar" value="#{session.user.userAvatar}" type="hidden")
+									span
+										button(type="button" id="uploadUserAvatar").btn.btn-default.btn-sm Upload
+										input(name="imageInput" id="imageInput" type="file" style="display:none")
+
+							div#uploadAlert.alert-required This field is required
+
+					div.form-group
+						label.col-md-4.control-label Name
+						div.col-md-3
+							input(name="userName" value="#{session.user.userName}").form-control
+							div#userNameAlert.alert-required This field is required
+					div.form-group
+						label.col-md-4.control-label Email
+						div.col-md-3
+							input(name="userEmail" value="#{session.user.userEmail}" readonly="readonly").form-control
+							div#userEmailAlert.alert-required Email is not right
+					div.form-group
+						div.col-md-6.col-md-offset-4
+							button(type="submit").btn.btn-primary Submit
+						div#submitAlert.alert-required Email is not right
+
+
+

@@ -1,0 +1,12 @@
+a(href="/topic/home")
+	if tagId
+		span.pull-left.first-tag.btn HOT
+	else
+		span.pull-left.first-tag.btn.btn-info HOT
+div
+	each tag in tags
+		a(href="/topic/home?tagId=#{tag._id}")
+			if tag._id == tagId
+				span.btn.btn-info #{tag.showName}
+			else
+				span.btn #{tag.showName}

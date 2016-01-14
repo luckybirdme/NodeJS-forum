@@ -1,0 +1,31 @@
+extends ../layout
+
+block content
+		div.panel.panel-default
+			div.panel-heading.header-tag
+				include tag
+			div.panel-body
+				div.list-group.post-list-group
+					if session.user
+						if session.user.userName == topic.userName
+							a(href="/topic/add?_id=#{topic._id}").btn.btn-primary.pull-right Edit
+					include topic 
+				div.post-body !{topic.content}
+				hr
+			div.comment-body
+				div.comment-header
+					label.control-label Comments
+				div#showComment.comment-list
+				form#commentForm.form-horizontal
+					input(type="hidden" name="topicId" id="topicId" value="#{topic._id}")
+					div.control-group
+						div.controls
+							textarea(name="content" rows="3" cols="50").form-control.input-xlarge
+						div#contentAlert.alert-required Email is not right
+					hr
+					div.control-group
+						div.controls
+							button(type="submit").btn.btn-primary Submit
+						div#submitAlert.alert-required Email is not right
+
+

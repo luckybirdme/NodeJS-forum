@@ -1,0 +1,14 @@
+div.list-group.post-list-group
+	if topics.length > 0
+		each topic in topics
+			div.pull-right.last-comment-at
+				div.meta
+					a(href="/topic/show/?_id=#{topic._id}")
+						span.timeago #{topic.update_at_ago()}
+			include topic
+	else
+		div.text-center 
+			p There is the no more topic , please back to home page
+			p 
+				a(href="/topic/home").btn.btn-sm.btn-primary Go Home Page	
+

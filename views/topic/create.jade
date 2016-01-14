@@ -1,0 +1,66 @@
+extends ../layout
+
+block content
+	div.panel.panel-default
+		div.panel-heading #{title}
+		div.panel-body
+			form#createForm.form-horizontal
+				div.control-group
+					label.control-label Title
+					div.controls
+						if topic
+							input(name="_id" value="#{topic._id}").hidden
+							input(name="title" value="#{topic.title}").form-control.input-xlarge
+						else
+							input(name="title").form-control.input-xlarge
+						div#titleAlert.alert-required This field is required
+				div.control-group
+					label.control-label Tags
+					div.controls
+						ul#tags-container
+						if tagsName
+							input(name="tags" value="#{tagsName}")#tags.hidden
+						else
+							input(name="tags" value="")#tags.hidden
+						span#hasTags.hidden #{hasTags}
+						div#tagsAlert.alert-required This field is required
+				div.control-group
+					label.control-label Content
+					div.controls
+						div.editor-wrapper
+							if topic
+								textarea(name="markdown" cols="50" rows="10")#editor #{topic.Markdown}
+							else
+								textarea(name="markdown" cols="50" rows="10")#editor
+
+						div#contentAlert.alert-required This field is required
+					div.controls
+						label.control-label Preview
+						div#editor-preview-container
+
+				hr
+				div.form-action
+					button(type="submit").btn.btn-primary Submit
+				div#submitAlert.alert-required Email is not right
+
+
+	button(data-toggle="modal" data-target="#imageUploadModal" style="display:none")#uploadImageButton
+	input(type = "file" value="" name="imageInput" style="display:none;")#imageInput
+
+	div#imageUploadModal.modal.fade
+		div.modal-dialog
+			div.modal-content
+				div.modal-header
+					button(type="button" data-dismiss="modal").close &times;
+					h4.modal-title Add Image
+				div.modal-body.image-upload-modal-body
+					div.panel-body
+						button(type="button").btn.btn-primary.pull-right#imageLocalButton Upload
+						
+						div.form-group
+							label.col-md-4.control-label Image Address
+							div.col-md-6
+								input.form-control(name="imageUrl" type="text")#imageUrl
+						div#uploadAlert.alert-required This field is required
+				div.modal-footer.image-upload-modal-footer
+					button#addToPostButton(type="button" data-dismiss="modal").btn.btn-primary Add to Topic

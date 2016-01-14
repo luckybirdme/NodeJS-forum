@@ -1,0 +1,39 @@
+doctype html
+html
+	head
+		title= title
+		link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+		link(rel='stylesheet', href='/stylesheets/styles.css')
+
+		link(rel='stylesheet', href='/stylesheets/jquery-ui.css')
+		link(rel='stylesheet', href='/stylesheets/jquery.tagit.css')
+		
+		link(rel='stylesheet', href='/stylesheets/editor.css')
+		link(rel='stylesheet', href='/stylesheets/editor-self.css')
+
+		link(rel='stylesheet', href='/stylesheets/main.css')
+	body
+		include header
+
+		div.container
+			div.main.col-sm-9.clearfix
+				block content
+			div.sidebar.col-sm-3.clearfix
+				include sidebar-user	
+			div.sidebar.col-sm-3.clearfix
+				include sidebar-tag	
+
+	script(src='/javascripts/jquery.min.js')
+
+	script(src='/javascripts/ajax-upload.js')
+
+	script(src='/javascripts/marked.js')
+	script(src='/javascripts/editor.js')
+
+	script(src='/javascripts/jquery-ui.min.js')
+	script(src='/javascripts/tag-it.js')
+
+	script(src='/javascripts/bootstrap.min.js')
+	script(src='/javascripts/common.js')
+
+

@@ -1,0 +1,21 @@
+div.panel.panel-default
+	#session
+	if session.user
+		div.panel-heading My Account
+		div.panel-body 
+			div.inner
+				div
+					a(href="/users/home?userName=#{session.user.userName}").user-avatar
+						img(src="#{session.user.userAvatar}")
+					span.user-name
+						a(href="/users/home?userName=#{session.user.userName}") #{session.user.userName}
+			div.add-topic-btn
+				a(href="/topic/add").btn.btn-primary Add Topic
+	else
+		div.panel-heading Wellcome to LuckyBird
+		div.panel-body 
+			div.inner
+				p A magic website , builed by Node.JS and Express !
+
+
+

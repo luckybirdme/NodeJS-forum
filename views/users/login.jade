@@ -1,0 +1,26 @@
+extends ../layout
+
+block content
+		div.panel.panel-default
+			div.panel-heading #{title}
+			div.panel-body 
+				form#loginForm.form-horizontal
+					div.form-group
+						label.col-md-4.control-label Email
+						div.col-md-3
+							input(name="userEmail").form-control
+							div#userEmailAlert.alert-required Email is not right
+					div.form-group
+						label.col-md-4.control-label Password
+						div.col-md-3
+							input(name="passWord" type="password").form-control
+							div#passWordAlert.alert-required This field is required
+					div.form-group
+						div.col-md-6.col-md-offset-4
+							button(type="submit").btn.btn-primary Login
+					div.form-group
+						div.col-md-6.col-md-offset-4
+							a(href="/users/register")  Go to Register
+
+
+

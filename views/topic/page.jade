@@ -1,0 +1,14 @@
+div.pagination-container
+	if pageInfo.prevUrl
+		ul.pagination.pull-left
+			li
+				a(href="#{pageInfo.prevUrl}")
+					span < Previous
+	ul.pagination
+		li
+			span.page-info #{pageInfo.pageNum} page
+	if 	pageInfo.nextUrl	
+		ul.pagination.pull-right
+			li
+				a(href="#{pageInfo.nextUrl}")
+					span Next >

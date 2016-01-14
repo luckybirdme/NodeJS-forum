@@ -1,0 +1,22 @@
+nav.navbar.navbar-white
+	div.header-container
+		div.navbar-header
+			button(type="button" data-toggle="collapse" data-target=".navbar-ex1-collapse").navbar-toggle
+				span.nav-menu-name Menu
+			a(href="/").navbar-brand #{webName}
+		div.collapse.navbar-collapse.navbar-ex1-collapse
+			ul.nav.navbar-nav.navbar-right
+				li
+					a(href="/") Home
+				if session.user
+					li
+						a(href="/users/home?userName=#{session.user.userName}") #{session.user.userName}
+					li
+						a(href="/users/setting") Setting
+					li
+						a(href="/users/logout") Logout			
+				else
+					li
+						a(href="/users/login") Login
+					li
+						a(href="/users/register") Register
