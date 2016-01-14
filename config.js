@@ -3,8 +3,7 @@ var config = {
 		name:"LuckyBird"
 	},
 	url:{
-		//host:"http://10.118.27.163:3000"
-		host:"http://172.20.10.2:3000"
+		host:"http://localhost:3000"
 	},
 	upload:{
 		uploadPath:"",
