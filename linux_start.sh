@@ -1,0 +1,1 @@
+DEBUG=myExpressApp:* npm start
