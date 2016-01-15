@@ -1,4 +1,4 @@
 exports.Users = require('./users');
-exports.Tag = require('./Tag');
-exports.Topic = require('./Topic');
-exports.Comment = require('./Comment');
+exports.Tag = require('./tag');
+exports.Topic = require('./topic');
+exports.Comment = require('./comment');
