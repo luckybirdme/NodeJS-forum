@@ -28,6 +28,6 @@ exports.getById = function(_id,callback){
 }
 
 exports.getByPage = function(query,fields,skip,limit,sort,callback){
-	Tag.find(query, fields, { skip: skip, limit: limit,sort }, callback);
+	Tag.find(query, fields, { skip: skip, limit: limit,sort:sort }, callback);
 }
 

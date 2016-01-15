@@ -16,7 +16,7 @@ exports.update = function(_id,update,callback){
 }
 
 exports.getByPage = function(query,fields,skip,limit,sort,callback){
-	Topic.find(query, fields, { skip: skip, limit: limit,sort }, callback);
+	Topic.find(query, fields, { skip: skip, limit: limit,sort:sort}, callback);
 }
 
 exports.getById = function(_id,callback){
