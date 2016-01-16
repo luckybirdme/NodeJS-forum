@@ -105,8 +105,7 @@ function comment(req,res,next){
 			});
 
 		}else{
-			var url = config.url.host;
-			global.jsonRedirect(res,url);			
+			ep.emit("comment_error","submit","Session is timeout, please login");		
 		}
 	});
 }
@@ -368,17 +367,26 @@ function create(req,res,next){
 			content : content,
 			update_at : new Date()
 		};
-		saveTopic(_id,newTopic,req,function(error,topic){
-			if (error) {
-		      	return next(error);
-		    }
-		    if(topic){
-		    	var url = config.url.host+"/topic/home";
-				global.jsonRedirect(res,url);		
-		    }else{
-		    	ep.emit("create_error","submit","Error occurred when save topic");
-		    }							
-		});
+
+		auth.getUserBySession(req,function(user){
+			if(user){
+				newTopic.userName = user.userName;
+				saveTopic(_id,newTopic,req,function(error,topic){
+					if (error) {
+				      	return next(error);
+				    }
+				    if(topic){
+				    	var url = config.url.host+"/topic/home";
+						global.jsonRedirect(res,url);		
+				    }else{
+				    	ep.emit("create_error","submit","Error occurred when save topic");
+				    }							
+				});
+			}else{
+				ep.emit("create_error","submit","Session is timeout, please login");
+			}
+		})
+
 
 	});
 
@@ -419,30 +427,22 @@ function saveTag(newTag,callback){
 
 function saveTopic(_id,newTopic,req,callback){
 
-	auth.getUserBySession(req,function(user){
-		if(user){
-			Topic.getById(_id,function(error,topic){
-				if (error) {
-			      	return next(error);
-			    }
+	Topic.getById(_id,function(error,topic){
+		if (error) {
+	      	return next(error);
+	    }
 
-				if(topic){
-					if(topic.userName == user.userName){
-						Topic.update(_id,newTopic,callback)
-					}else{
-						var url = config.url.host;
-						global.jsonRedirect(res,url);						
-					}
-					
-				}else{
-					newTopic.userName = user.userName;
-					Topic.insert(newTopic,callback);
-				}
-			});
+		if(topic){
+			if(topic.userName == newTopic.userName){
+				Topic.update(_id,newTopic,callback)
+			}else{
+				var url = config.url.host;
+				global.jsonRedirect(res,url);						
+			}
+			
 		}else{
-			var url = config.url.host;
-			global.jsonRedirect(res,url);
+			Topic.insert(newTopic,callback);
 		}
-	})
+	});
 	
 }

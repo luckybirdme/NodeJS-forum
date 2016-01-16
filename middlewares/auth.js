@@ -1,4 +1,6 @@
 var config = require("../config");
+var global = require("../common/global");
+
 exports.saveUserSession = saveUserSession;
 exports.removeUserSession = removeUserSession;
 exports.getUserBySession = getUserBySession;
@@ -17,7 +19,12 @@ function requiredLogin(req,res,next){
 		return next();
 	}else{
 		var url = config.url.host;
-		res.redirect(url);
+		if(req.xhr){
+			global.jsonRedirect(res,url);
+		}else{
+			res.redirect(url);
+		}
+		
 	}	
 }
 
