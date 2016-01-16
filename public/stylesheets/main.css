@@ -114,6 +114,7 @@ nav.navbar-white{
 .header-tag{
     padding-bottom: 7px;
     padding-top: 7px;
+	min-height:41px;
 }
 .header-tag span{
     margin-right: 10px;
