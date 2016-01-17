@@ -168,3 +168,6 @@ nav.navbar-white{
     border-bottom: 1px dashed #ccc;
     padding: 10px 0;
 }
+.post-body img {
+    width: 100%;
+}
