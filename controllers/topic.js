@@ -207,48 +207,51 @@ function show(req,res,next){
 		if (error) {
 		    return next(error);
 		}
-		topic.openCount = topic.openCount + 1;
-		var update = {openCount:topic.openCount};
-
-		Topic.update(topic._id,update,function(error,raw){
-			if (error) {
-			    return next(error);
-			}
-
-			var tagsId = topic.tagsId;
-			var ep = new eventproxy();
-			ep.after('getTags',tagsId.length,function (tags) {
-
-				var resData = {
-						title : topic.title,
-						topic : topic,
-						tags : tags
-					};
-
-					res.render('topic/show', resData);	
-
-			});	
+		if(topic){
 			
-			tagsId.forEach(function(tagId){
-				Tag.getById(tagId,function(error,tag){
-					if(error){
-						return next(error);
-					}
-					if(tag){
-						ep.emit("getTags",tag);
-					}else{
-						ep.emit("getTags");
-					}
-					
-				})
-			});	
+			topic.openCount = topic.openCount + 1;
+			var update = {openCount:topic.openCount};
 
+			Topic.update(topic._id,update,function(error,raw){
+				if (error) {
+					return next(error);
+				}
 
+				var tagsId = topic.tagsId;
+				var ep = new eventproxy();
+				ep.after('getTags',tagsId.length,function (tags) {
 
+					var resData = {
+							title : topic.title,
+							topic : topic,
+							tags : tags
+						};
 
+						res.render('topic/show', resData);	
 
-		})
+				});	
+				
+				tagsId.forEach(function(tagId){
+					Tag.getById(tagId,function(error,tag){
+						if(error){
+							return next(error);
+						}
+						if(tag){
+							ep.emit("getTags",tag);
+						}else{
+							ep.emit("getTags");
+						}
+						
+					})
+				});	
+			})
 		
+			
+		}else{
+			var url = config.url.host;
+			res.redirect(url);	
+		}
+
 	})
 }
 
