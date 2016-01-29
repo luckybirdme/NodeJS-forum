@@ -108,11 +108,8 @@ function init(){
     }
 
 	var csrfToken = $("meta[name='csrfToken']").attr('content');
-
-
 	var setCSRFToken = function (csrfToken) {
 	  $(document).ajaxSend(function (event,xhr,options) {
-	  	console.log("xhr:"+JSON.stringify(xhr, null, 2));
 	  	var type = options.type.toUpperCase();
 	    if (type == 'POST') {
 	      	if(xhr.setRequestHeader){
@@ -125,7 +122,6 @@ function init(){
 	      		}else{
 	      			options.url = options.url+"&_csrf="+csrfToken;
 	      		}
-	      		console.log("options:"+JSON.stringify(options, null, 2));
 	      	}
 	    }
 	  });
