@@ -1,7 +1,7 @@
 var config = require("../config")
 var validator = require('validator');
 var eventproxy = require('eventproxy');
-var global = require("../common/global");
+var helps = require("../common/helps");
 var marked = require('marked');
 var proxy = require('../proxy');
 var Tag = proxy.Tag;
@@ -51,7 +51,7 @@ function comment(req,res,next){
 	var ep = new eventproxy();
 	ep.fail(next);
 	ep.once('comment_error', function (name,notice) {
-		global.resJsonError(req,res,name,notice);
+		helps.resJsonError(req,res,name,notice);
 	});	
 
 	if(validator.isNull(content)){
@@ -80,7 +80,7 @@ function comment(req,res,next){
 						return next(error);
 					}
 					var url = config.url.host+"/topic/show?_id="+topic._id;
-					global.jsonRedirect(res,url);	
+					helps.jsonRedirect(res,url);	
 				})
 			}else{
 				ep.emit("comment_error","submit","Error occurred when get topic");
@@ -327,7 +327,7 @@ function create(req,res,next){
 	var ep = new eventproxy();
 	ep.fail(next);
 	ep.once('create_error', function (name,notice) {
-		global.resJsonError(req,res,name,notice);
+		helps.resJsonError(req,res,name,notice);
 	});	
 	
 	if(validator.isNull(title)){
@@ -380,7 +380,7 @@ function create(req,res,next){
 				    }
 				    if(topic){
 				    	var url = config.url.host+"/topic/home";
-						global.jsonRedirect(res,url);		
+						helps.jsonRedirect(res,url);		
 				    }else{
 				    	ep.emit("create_error","submit","Error occurred when save topic");
 				    }							
@@ -440,7 +440,7 @@ function saveTopic(_id,newTopic,req,callback){
 				Topic.update(_id,newTopic,callback)
 			}else{
 				var url = config.url.host;
-				global.jsonRedirect(res,url);						
+				helps.jsonRedirect(res,url);						
 			}
 			
 		}else{

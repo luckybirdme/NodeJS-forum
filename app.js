@@ -1,5 +1,5 @@
 var config = require("./config");
-var global = require("./common/global");
+var helps = require("./common/helps");
 
 
 var express = require('express');
@@ -59,7 +59,7 @@ app.use(function (err, req, res, next) {
     // handle CSRF token errors here
     var name = 'submit';
     var notice = 'Invalid csrf token , please refresh';
-    global.resJsonError(req,res,name,notice);
+    helps.resJsonError(req,res,name,notice);
 })
 
 

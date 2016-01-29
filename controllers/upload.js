@@ -1,5 +1,5 @@
 var auth  = require("../middlewares/auth");
-var global  = require("../common/global");
+var helps  = require("../common/helps");
 var tools  = require("../common/tools");
 var config  = require("../config");
 var multer  = require('multer')
@@ -15,8 +15,11 @@ function image(req,res,next){
 			var fileName = user.userName+ '-' + d.valueOf()+'.png';
 			var uploadPath = config.upload.uploadPath;
 			if(uploadPath == ""||uploadPath==null||undefined){
-				uploadPath = appRoot;
+				uploadPath = config.web.appRoot;
 			} 
+			if(uploadPath == ""||uploadPath==null||undefined){
+				uploadPath = appRoot;;
+			} 		
 			var filePath = uploadPath+fileFloder;
 			var fileUrl = fileFloder+fileName;
 
@@ -47,17 +50,17 @@ function image(req,res,next){
 				    if (error) {
 				      // An error occurred when uploading
 				      console.log("upload error:"+error);
-				      global.resJsonError(req,res,"upload",error.code);
+				      helps.resJsonError(req,res,"upload",error.code);
 				      return;
 				    }
 				    // Everything went fine
-				    global.resJsonSuccess(req,res,'upload','Successfully',fileUrl);
+				    helps.resJsonSuccess(req,res,'upload','Successfully',fileUrl);
 				});
 			});
 
 	      	
 	    }else{ 
-	    	 global.resJsonError(req,res,"upload","User is not exists");
+	    	 helps.resJsonError(req,res,"upload","User is not exists");
 	   	}
 	});
 

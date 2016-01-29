@@ -109,17 +109,24 @@ function init(){
 
 	var csrfToken = $("meta[name='csrfToken']").attr('content');
 
-	var CSRF_HEADER = 'csrf-token';
 
 	var setCSRFToken = function (csrfToken) {
 	  $(document).ajaxSend(function (event,xhr,options) {
-	  	console.log("ajaxSend");
-	  	
+	  	console.log("xhr:"+JSON.stringify(xhr, null, 2));
 	  	var type = options.type.toUpperCase();
-	  	console.log("type:"+type);
 	    if (type == 'POST') {
-	    	console.log("xhr:"+xhr);
-	      	xhr.setRequestHeader(CSRF_HEADER, csrfToken);
+	      	if(xhr.setRequestHeader){
+	      		xhr.setRequestHeader('csrf-token', csrfToken);
+	      	}else{
+	      		options.data['_csrf'] = csrfToken;
+	      		
+	      		if(options.url.indexOf("?") == -1){
+	      			options.url = options.url+"?_csrf="+csrfToken;
+	      		}else{
+	      			options.url = options.url+"&_csrf="+csrfToken;
+	      		}
+	      		console.log("options:"+JSON.stringify(options, null, 2));
+	      	}
 	    }
 	  });
 	};
@@ -258,16 +265,17 @@ function ajaxUploadImage(){
 	hideAlertNotice();
 	showBtnLoading();
 	var url = "/upload/image";
-	var data = {
-	};
+
 	$.ajaxFileUpload({
 		url:url,
 		timeout:60000,
 		secureuri:false,                       
 		fileElementId:["imageInput"],            
 		dataType:"json",
-		type : "post",                       
-		data:data,
+		type : "post", 
+		data : {
+			test:'test'
+		},                      
 		success:function(data, status ){ 
 				if(data.error){
 					showAlertNotice(data.error);

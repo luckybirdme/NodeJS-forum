@@ -1,9 +1,13 @@
+var path = require('path');
+var appRoot = path.resolve(__dirname);
 var config = {
 	web:{
-		name:"LuckyBird"
+		name:"LuckyBird",
+		appRoot:appRoot
 	},
 	url:{
-		host:"http://localhost:3000"
+		//host:"http://10.118.27.156:3000"
+		host:"http://172.20.10.2:3000"
 	},
 	upload:{
 		uploadPath:"",

@@ -5,7 +5,7 @@ var eventproxy = require('eventproxy');
 var auth = require("../middlewares/auth");
 var tools = require("../common/tools");
 var email = require("../common/email");
-var global = require("../common/global");
+var helps = require("../common/helps");
 var proxy = require('../proxy');
 var Users = proxy.Users;
 var Topic = proxy.Topic;
@@ -54,7 +54,7 @@ function setting(req,res,next){
 	var ep = new eventproxy();
 	ep.fail(next);
 	ep.once('setting_error', function (name,notice) {
-		global.resJsonError(req,res,name,notice);
+		helps.resJsonError(req,res,name,notice);
 	});
 
 
@@ -67,7 +67,7 @@ function setting(req,res,next){
 			}
 			auth.saveUserSession(req,user);
 			var url = config.url.host+"/users/setting";
-			global.jsonRedirect(res,url);		
+			helps.jsonRedirect(res,url);		
 
 		});
 
@@ -116,7 +116,7 @@ function active(req,res,next){
 	var ep = new eventproxy();
 	ep.fail(next);
 	ep.once('active_error', function (name,notice) {
-		global.resJsonError(req,res,name,notice);
+		helps.resJsonError(req,res,name,notice);
 	});	
 
 	Users.getByEmail(userEmail,function(error,user){
@@ -132,7 +132,7 @@ function active(req,res,next){
 				      	return next(error);
 				    }
 
-				    global.resJsonSuccess(req,res,"userEmail","Active successfully , please login !");
+				    helps.resJsonSuccess(req,res,"userEmail","Active successfully , please login !");
 
 	    		})	
 
@@ -168,7 +168,7 @@ function login(req, res, next){
 	var ep = new eventproxy();
 	ep.fail(next);
 	ep.once('login_error', function (name,notice) {
-		global.resJsonError(req,res,name,notice);
+		helps.resJsonError(req,res,name,notice);
 	});	
 
 	if(validator.isNull(userEmail)){
@@ -198,7 +198,7 @@ function login(req, res, next){
 	    		if(state){
 		    		auth.saveUserSession(req,user);
 					var url = config.url.host;
-					global.jsonRedirect(res,url);
+					helps.jsonRedirect(res,url);
 	    		}else{
 	    			ep.emit("login_error","passWord","Password is not right");
 	    		}
@@ -225,7 +225,7 @@ function register(req, res, next){
 	var ep = new eventproxy();
 	ep.fail(next);
 	ep.once('register_error', function (name,notice) {
-		global.resJsonError(req,res,name,notice);
+		helps.resJsonError(req,res,name,notice);
 	});
 
 	if(userName.length < 6){
@@ -273,7 +273,7 @@ function register(req, res, next){
 			    if (user) {
 			      	sendActiveEmail(user);
 			      	var url = config.url.host+"/users/login"
-					global.jsonRedirect(res,url);
+					helps.jsonRedirect(res,url);
 			    }else{
 			    	ep.emit("register_error","userEmail","Error occurred when save user");
 			    }
