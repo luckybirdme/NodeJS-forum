@@ -9,7 +9,7 @@ function jsonRedirect(res,url){
 	res.json(data);
 }
 
-function resJsonSuccess(res,name,notice,url){
+function resJsonSuccess(req,res,name,notice,url){
 	var data = {
 		success : {
 			name : name,
@@ -17,16 +17,20 @@ function resJsonSuccess(res,name,notice,url){
 			url:url
 		}
 	};
-	res.json(data);
+	resJsonOut(req,res,data);
 }
 
-function resJsonError(res,name,notice){
+function resJsonError(req,res,name,notice){
 	var data = {
 		error : {
 			name : name,
 			notice : notice
 		}
 	};
+	resJsonOut(req,res,data);
+}
+
+function resJsonOut(req,res,data){
 	res.json(data);
 }
 

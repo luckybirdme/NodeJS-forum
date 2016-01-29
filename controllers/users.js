@@ -54,7 +54,7 @@ function setting(req,res,next){
 	var ep = new eventproxy();
 	ep.fail(next);
 	ep.once('setting_error', function (name,notice) {
-		global.resJsonError(res,name,notice);
+		global.resJsonError(req,res,name,notice);
 	});
 
 
@@ -116,7 +116,7 @@ function active(req,res,next){
 	var ep = new eventproxy();
 	ep.fail(next);
 	ep.once('active_error', function (name,notice) {
-		global.resJsonError(res,name,notice);
+		global.resJsonError(req,res,name,notice);
 	});	
 
 	Users.getByEmail(userEmail,function(error,user){
@@ -132,7 +132,7 @@ function active(req,res,next){
 				      	return next(error);
 				    }
 
-				    global.resJsonSuccess(res,"userEmail","Active successfully , please login !");
+				    global.resJsonSuccess(req,res,"userEmail","Active successfully , please login !");
 
 	    		})	
 
@@ -168,7 +168,7 @@ function login(req, res, next){
 	var ep = new eventproxy();
 	ep.fail(next);
 	ep.once('login_error', function (name,notice) {
-		global.resJsonError(res,name,notice);
+		global.resJsonError(req,res,name,notice);
 	});	
 
 	if(validator.isNull(userEmail)){
@@ -225,7 +225,7 @@ function register(req, res, next){
 	var ep = new eventproxy();
 	ep.fail(next);
 	ep.once('register_error', function (name,notice) {
-		global.resJsonError(res,name,notice);
+		global.resJsonError(req,res,name,notice);
 	});
 
 	if(userName.length < 6){

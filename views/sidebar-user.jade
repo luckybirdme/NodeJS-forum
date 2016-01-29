@@ -1,6 +1,5 @@
 div.panel.panel-default
-	#session
-	if session.user
+	if session && session.user
 		div.panel-heading My Account
 		div.panel-body 
 			div.inner

@@ -51,7 +51,7 @@ function comment(req,res,next){
 	var ep = new eventproxy();
 	ep.fail(next);
 	ep.once('comment_error', function (name,notice) {
-		global.resJsonError(res,name,notice);
+		global.resJsonError(req,res,name,notice);
 	});	
 
 	if(validator.isNull(content)){
@@ -327,7 +327,7 @@ function create(req,res,next){
 	var ep = new eventproxy();
 	ep.fail(next);
 	ep.once('create_error', function (name,notice) {
-		global.resJsonError(res,name,notice);
+		global.resJsonError(req,res,name,notice);
 	});	
 	
 	if(validator.isNull(title)){

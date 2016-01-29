@@ -47,17 +47,17 @@ function image(req,res,next){
 				    if (error) {
 				      // An error occurred when uploading
 				      console.log("upload error:"+error);
-				      global.resJsonError(res,"upload",error.code);
+				      global.resJsonError(req,res,"upload",error.code);
 				      return;
 				    }
 				    // Everything went fine
-				    global.resJsonSuccess(res,'upload','Successfully',fileUrl);
+				    global.resJsonSuccess(req,res,'upload','Successfully',fileUrl);
 				});
 			});
 
 	      	
 	    }else{ 
-	    	 global.resJsonError(res,"upload","User is not exists");
+	    	 global.resJsonError(req,res,"upload","User is not exists");
 	   	}
 	});
 

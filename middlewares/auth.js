@@ -5,6 +5,7 @@ exports.saveUserSession = saveUserSession;
 exports.removeUserSession = removeUserSession;
 exports.getUserBySession = getUserBySession;
 exports.requiredLogin = requiredLogin;
+exports.getCsrfToken = getCsrfToken;
 
 function getUserBySession(req,callback){
 	if(req.session && req.session.user){
@@ -35,5 +36,11 @@ function saveUserSession(req,user){
 
 function removeUserSession(req,callback){
 	req.session.destroy(callback);
+}
+
+function getCsrfToken(req,res,next){
+	req.session.csrfSecret = undefined;
+    res.locals.csrfToken = req.csrfToken();
+	return next();
 }
 

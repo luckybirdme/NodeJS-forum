@@ -1,11 +1,18 @@
 var config = require("./config");
+var global = require("./common/global");
+
 
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
+
+
+
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+
+var csrf = require('csurf');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -36,12 +43,25 @@ app.use(session({
     secret: config.session.cookie.secret,
     name: config.session.cookie.name,
     cookie: {
-        maxAge:config.session.cookie.maxAge 
+        maxAge:config.session.cookie.maxAge
     },
     resave: false,
     saveUninitialized: true,
         store: new MongoStore({ url:config.session.database.address })
 }));
+
+var csrfProtection = csrf();
+app.use(csrfProtection);
+
+app.use(function (err, req, res, next) {
+    if (err.code !== 'EBADCSRFTOKEN') return next(err)
+
+    // handle CSRF token errors here
+    var name = 'submit';
+    var notice = 'Invalid csrf token , please refresh';
+    global.resJsonError(req,res,name,notice);
+})
+
 
 app.use(function(req,res,next){
     res.locals.session = req.session;

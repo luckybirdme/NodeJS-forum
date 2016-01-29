@@ -8,7 +8,7 @@ nav.navbar.navbar-white
 			ul.nav.navbar-nav.navbar-right
 				li
 					a(href="/") Home
-				if session.user
+				if session && session.user
 					li
 						a(href="/users/home?userName=#{session.user.userName}") #{session.user.userName}
 					li

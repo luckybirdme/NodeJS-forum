@@ -1,7 +1,5 @@
-$(function(){
-
+$(function(){  
 	init();
-
 })
 
 function init(){
@@ -109,6 +107,25 @@ function init(){
     	getTopicComments(showComments,url);
     }
 
+	var csrfToken = $("meta[name='csrfToken']").attr('content');
+
+	var CSRF_HEADER = 'csrf-token';
+
+	var setCSRFToken = function (csrfToken) {
+	  $(document).ajaxSend(function (event,xhr,options) {
+	  	console.log("ajaxSend");
+	  	
+	  	var type = options.type.toUpperCase();
+	  	console.log("type:"+type);
+	    if (type == 'POST') {
+	    	console.log("xhr:"+xhr);
+	      	xhr.setRequestHeader(CSRF_HEADER, csrfToken);
+	    }
+	  });
+	};
+
+	setCSRFToken(csrfToken);
+
 }
 
 function getTopicComments(obj,url){
@@ -180,8 +197,8 @@ function ajaxPost(e,obj,url){
 			timeout : 10000,
 			dataType: "json",
 			data: data, // serializes the form's elements.
-			success: function(data){
 
+			success: function(data){
 				if(data.error){
 					showAlertNotice(data.error);
 				}else if(data.success){
