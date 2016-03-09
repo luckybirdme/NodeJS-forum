@@ -1,5 +1,5 @@
-# NodeJS-learn-forum
-最近学习NodeJS，利用ExpressJS框架和MongoDB数据库搭建了一个简单的Forum，分享出来一起学习！
+# NodeJS-forum
+最近学习NodeJS，利用ExpressJS框架和MongoDB数据库搭建了一个简单的Forum！
 
 演示地址：[Demo](http://nodejs.luckybird.me/)
 
