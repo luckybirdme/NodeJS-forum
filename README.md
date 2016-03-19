@@ -12,7 +12,7 @@
 **安装方法**
 
 ```
-$ git clone https://github.com/luckybirdme/NodeJS-learn-forum.git
+$ git clone https://github.com/luckybirdme/NodeJS-forum.git
 $ npm install
 $ DEBUG=myExpressApp:* npm start
 
